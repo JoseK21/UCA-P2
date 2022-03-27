@@ -109,7 +109,7 @@ class ContactForm
         // extract($_REQUEST);
         $folderId = $_SESSION["id_"];
 
-        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\BaseDeDatos\ContactsByUser\\' . $folderId . '\\' . $this->getNumero_De_Identificacion() . 'txt';
+        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\localDataBase\ContactsByUser\\' . $folderId . '\\' . $this->getNumero_De_Identificacion() . 'txt';
 
         if (file_exists($myfile)) {
             return false;
@@ -141,8 +141,6 @@ class ContactForm
             fwrite($file,  $this->getDocumento_Adjunto() . "\n");
 
             fclose($file);
-
-            // header("location: index.php");
 
             return true;
         }

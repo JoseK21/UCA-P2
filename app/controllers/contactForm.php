@@ -2,11 +2,11 @@
 
 session_start();
 
-require_once('Model/contactForm.php');
+require_once('app/models/contactForm.php');
 
 $_contactForm = new ContactForm();
 
-require_once('View/contactForm.php');
+require_once('app/views/contactForm.php');
 
 if (isset($_POST['saveContact'])) {
     $_contactForm->setNumero_De_Identificacion($_POST['id']);

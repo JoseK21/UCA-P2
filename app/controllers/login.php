@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-require_once('Model/login.php');
+require_once('app/models/login.php');
 
 $_loginCredentials = new LoginCredentials();
 
 $_loginCredentials->cleanSeccionVariables();
 
-require_once('View/login.php');
+require_once('app/views/login.php');
 
 if (isset($_POST['login'])) {
     $_loginCredentials->setPassword($_POST['password']);

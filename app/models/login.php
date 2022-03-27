@@ -2,8 +2,7 @@
 
 class LoginCredentials
 {
-
-    // Varible
+    // Variables
     protected $id;
     protected $password;
 
@@ -42,11 +41,9 @@ class LoginCredentials
         unset($_SESSION['pass_']);
     }
 
-
-
     public function isValidUser()
     {
-        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\BaseDeDatos\Users\\' . $this->id . '.txt';
+        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\localDataBase\Users\\' . $this->id . '.txt';
 
         if (file_exists($myfile )) {
             $file_handle = fopen($myfile , 'r');
@@ -67,8 +64,7 @@ class LoginCredentials
 
     public function goToContactForm()
     {
-        // require_once('Controller/contactForm.php');
-        // header("Location: http://localhost/partial2/View/contactForm.php");
+        header("Location: http://localhost/partial2/app/views/contactForm.php");
         exit();
     }
 }
