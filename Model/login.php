@@ -1,9 +1,9 @@
-<?php 
+<?php
 
-// session_start();
-
-class Login
+class LoginCredentials
 {
+
+    // Varible
     protected $id;
     protected $password;
 
@@ -29,40 +29,46 @@ class Login
         $this->password = $password;
     }
 
-    public function saveSeccionVariables(int $id, string $password)
+    // Functions
+    public function saveSeccionVariables()
     {
-        $_SESSION["id_"] = $id;
-        $_SESSION["pass_"] = $password;
+        $_SESSION["id_"] = $this->id;
+        $_SESSION["pass_"] = $this->password;
     }
+
+    public function cleanSeccionVariables()
+    {
+        unset($_SESSION['id_']);
+        unset($_SESSION['pass_']);
+    }
+
+
 
     public function isValidUser()
     {
-        $file_pointer = __DIR__.'\BaseDeDatos\\' . $this->id . '.txt';
-        echo $file_pointer;
-    
-        if (file_exists($file_pointer)) {
-            echo "The file $file_pointer exists";
+        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\BaseDeDatos\Users\\' . $this->id . '.txt';
 
-            $file_handle = fopen($file_pointer, 'r');
-            $contents = fread($file_handle, filesize($file_pointer));
+        if (file_exists($myfile )) {
+            $file_handle = fopen($myfile , 'r');
+            $contents = fread($file_handle, filesize($myfile));
             fclose($file_handle);
-
+            
             $validUserAndpasswors = $contents == $this->password;
 
-            echo $validUserAndpasswors;
-            echo $contents;
-
-            return true;
-
+            if ($validUserAndpasswors) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
-
     }
 
-    public function goToContactForm(array $data)
+    public function goToContactForm()
     {
-        header("Location: http://localhost/partial2/View/contactForm.php");
+        // require_once('Controller/contactForm.php');
+        // header("Location: http://localhost/partial2/View/contactForm.php");
         exit();
     }
 }

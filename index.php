@@ -1,7 +1,4 @@
 <?php
-// index.php
-// header("Location: http://localhost/partial2/View/login.php");
-// exit();
-
- require('Controller/login.php')
+ require_once('Controller/login.php');
+//  require_once('Controller/contactForm.php');
 ?>

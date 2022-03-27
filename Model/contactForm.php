@@ -52,8 +52,6 @@ class ContactForm
         return $this->documento_adjunto;
     }
 
-
-
     // SET METHODS
     public function setNumero_De_Identificacion(string $numero_de_identificacion)
     {
@@ -95,20 +93,58 @@ class ContactForm
         $this->documento_adjunto = $documento_adjunto;
     }
 
+
+    public function write_to_console($data)
+    {
+        $console = $data;
+        if (is_array($console))
+            $console = implode(',', $console);
+
+        echo "<script>console.log('Console: " . $console . "' );</script>";
+    }
+
     // CRUD OPERATIONS
-    public function create(array $data)
+    public function addContact()
     {
-    }
+        // extract($_REQUEST);
+        $folderId = $_SESSION["id_"];
 
-    public function read(int $id)
-    {
-    }
+        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\BaseDeDatos\ContactsByUser\\' . $folderId . '\\' . $this->getNumero_De_Identificacion() . 'txt';
 
-    public function update(int $id, array $data)
-    {
-    }
+        if (file_exists($myfile)) {
+            return false;
+        } else {
+            $file = fopen($myfile, "w");
 
-    public function delete(int $id)
-    {
+            fwrite($file, "Numero_de_Identificacion :");
+            fwrite($file,  $this->getNumero_De_Identificacion() . "\n");
+
+            fwrite($file, "Nombre :");
+            fwrite($file,  $this->getNombre() . "\n");
+
+            fwrite($file, "Apellidos :");
+            fwrite($file,  $this->getApellidos() . "\n");
+
+            fwrite($file, "Genero :");
+            fwrite($file,  $this->getGenero() . "\n");
+
+            fwrite($file, "Telefono :");
+            fwrite($file,  $this->getTelefono() . "\n");
+
+            fwrite($file, "Correo_Electronico :");
+            fwrite($file,  $this->getCorreo_Electronico() . "\n");
+
+            fwrite($file, "Fecha_de_nacimiento :");
+            fwrite($file,  $this->getFecha_De_Nacimiento() . "\n");
+
+            fwrite($file, "Documento_Adjunto :");
+            fwrite($file,  $this->getDocumento_Adjunto() . "\n");
+
+            fclose($file);
+
+            // header("location: index.php");
+
+            return true;
+        }
     }
 }
