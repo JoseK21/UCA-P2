@@ -1,7 +1,7 @@
 <?php
- session_start();
-echo "User ID " . $_SESSION["id_"] . ".<br>";
-echo "Password " . $_SESSION["pass_"] . ".<br>";
+// Show Session Varriables
+// echo "User ID " . $_SESSION["id_"] . ".<br>";
+// echo "Password " . $_SESSION["pass_"] . ".<br>";
 ?>
 <!DOCTYPE HTML>
 <html>

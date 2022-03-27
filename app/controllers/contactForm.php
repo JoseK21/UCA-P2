@@ -1,14 +1,28 @@
 <?php
 
-session_start();
+class ContactForm extends Controller {
 
-require_once('app/models/contactForm.php');
+    public function __construct()
+    {
+        $this->view('contactForm');
+    }
 
-$_contactForm = new ContactForm();
+    public function goToLogin()
+    {
+        header("Location: http://localhost/partial2/login");
+    
+        exit();
+    }
 
-require_once('app/views/contactForm.php');
+}
 
 if (isset($_POST['saveContact'])) {
+    require_once '../app/models/contactFormModel.php';
+
+    $_contactForm = new ContactFormModel();
+    
+    // $_contactForm->cleanSeccionVariables();
+
     $_contactForm->setNumero_De_Identificacion($_POST['id']);
     $_contactForm->setNombre($_POST['name']);
     $_contactForm->setApellidos($_POST['lastname']);
@@ -30,15 +44,14 @@ if (isset($_POST['saveContact'])) {
 }
 
 if (isset($_POST['logout'])) {
-    echo '<script language="javascript">alert("logout!");</script>';
-
-    header("Location: http://localhost/partial2");
-
+    $_contact = new ContactForm();
+  
     // Cleaning Session variables
     unset($_SESSION['id_']);
     unset($_SESSION['pass_']);
 
     unset($_POST['logout']);
-    exit();
+    
+    $_contact->goToLogin();
 }
 ?>

@@ -1,6 +1,6 @@
 <?php
 
-class LoginCredentials
+class LoginModel
 {
     // Variables
     protected $id;
@@ -60,11 +60,5 @@ class LoginCredentials
         } else {
             return false;
         }
-    }
-
-    public function goToContactForm()
-    {
-        header("Location: http://localhost/partial2/app/views/contactForm.php");
-        exit();
     }
 }

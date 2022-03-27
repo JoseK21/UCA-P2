@@ -1,0 +1,8 @@
+Numero_de_Identificacion : 5
+Nombre : 5
+Apellidos : 55
+Genero : 5
+Telefono : 5555
+Correo_Electronico : 5@gfg.com
+Fecha_de_nacimiento : 0005-05-05
+Documento_Adjunto : -

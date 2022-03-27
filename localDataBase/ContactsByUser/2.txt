@@ -1,0 +1,8 @@
+Numero_de_Identificacion : 2
+Nombre : 1
+Apellidos : 1
+Genero : 1
+Telefono : 1
+Correo_Electronico : 1@hgmail.com
+Fecha_de_nacimiento : 0001-11-01
+Documento_Adjunto : -

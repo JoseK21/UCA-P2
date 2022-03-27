@@ -1,6 +1,6 @@
 <?php
 
-class ContactForm
+class ContactFormModel
 {
     protected $numero_de_identificacion;
     protected $nombre;
@@ -93,56 +93,56 @@ class ContactForm
         $this->documento_adjunto = $documento_adjunto;
     }
 
-
-    public function write_to_console($data)
+    public function cleanSeccionVariables()
     {
-        $console = $data;
-        if (is_array($console))
-            $console = implode(',', $console);
-
-        echo "<script>console.log('Console: " . $console . "' );</script>";
+        unset($_SESSION['id_']);
+        unset($_SESSION['pass_']);
     }
 
     // CRUD OPERATIONS
     public function addContact()
     {
-        // extract($_REQUEST);
-        $folderId = $_SESSION["id_"];
+        if (!empty($_SESSION["id_"])) {
+            $folderId = $_SESSION["id_"];
+            if (!file_exists($_SERVER['DOCUMENT_ROOT'] . '\partial2\localDataBase\ContactsByUser\\' . $folderId)) {
+                mkdir($_SERVER['DOCUMENT_ROOT'] . '\partial2\localDataBase\ContactsByUser\\' . $folderId, 0777, true);
+            }
 
-        $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\localDataBase\ContactsByUser\\' . $folderId . '\\' . $this->getNumero_De_Identificacion() . 'txt';
-
-        if (file_exists($myfile)) {
-            return false;
-        } else {
-            $file = fopen($myfile, "w");
-
-            fwrite($file, "Numero_de_Identificacion :");
-            fwrite($file,  $this->getNumero_De_Identificacion() . "\n");
-
-            fwrite($file, "Nombre :");
-            fwrite($file,  $this->getNombre() . "\n");
-
-            fwrite($file, "Apellidos :");
-            fwrite($file,  $this->getApellidos() . "\n");
-
-            fwrite($file, "Genero :");
-            fwrite($file,  $this->getGenero() . "\n");
-
-            fwrite($file, "Telefono :");
-            fwrite($file,  $this->getTelefono() . "\n");
-
-            fwrite($file, "Correo_Electronico :");
-            fwrite($file,  $this->getCorreo_Electronico() . "\n");
-
-            fwrite($file, "Fecha_de_nacimiento :");
-            fwrite($file,  $this->getFecha_De_Nacimiento() . "\n");
-
-            fwrite($file, "Documento_Adjunto :");
-            fwrite($file,  $this->getDocumento_Adjunto() . "\n");
-
-            fclose($file);
-
-            return true;
+            $myfile = $_SERVER['DOCUMENT_ROOT'] . '\partial2\localDataBase\ContactsByUser\\' . $folderId . '\\' . $this->getNumero_De_Identificacion() . '.txt';
+    
+            if (file_exists($myfile)) {
+                return false;
+            } else {
+                $file = fopen($myfile, "w");
+    
+                fwrite($file, "Numero_de_Identificacion : ");
+                fwrite($file,  $this->getNumero_De_Identificacion() . "\n");
+    
+                fwrite($file, "Nombre : ");
+                fwrite($file,  $this->getNombre() . "\n");
+    
+                fwrite($file, "Apellidos : ");
+                fwrite($file,  $this->getApellidos() . "\n");
+    
+                fwrite($file, "Genero : ");
+                fwrite($file,  $this->getGenero() . "\n");
+    
+                fwrite($file, "Telefono : ");
+                fwrite($file,  $this->getTelefono() . "\n");
+    
+                fwrite($file, "Correo_Electronico : ");
+                fwrite($file,  $this->getCorreo_Electronico() . "\n");
+    
+                fwrite($file, "Fecha_de_nacimiento : ");
+                fwrite($file,  $this->getFecha_De_Nacimiento() . "\n");
+    
+                fwrite($file, "Documento_Adjunto : ");
+                fwrite($file,  $this->getDocumento_Adjunto() . "\n");
+    
+                fclose($file);
+    
+                return true;
+            }
         }
     }
 }

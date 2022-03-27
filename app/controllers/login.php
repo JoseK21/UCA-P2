@@ -1,15 +1,29 @@
 <?php
-session_start();
 
-require_once('app/models/login.php');
+class Login extends Controller {
 
-$_loginCredentials = new LoginCredentials();
-
-$_loginCredentials->cleanSeccionVariables();
-
-require_once('app/views/login.php');
+    public function __construct()
+    {
+        // $this->model('loginModel');
+        $this->view('login');
+    }
+    
+    public function goToContactForm()
+    {
+        header("Location: http://localhost/partial2/contactForm");
+    
+        exit();
+    }
+}
 
 if (isset($_POST['login'])) {
+    require_once '../app/models/LoginModel.php';
+    $_loginCredentials = new LoginModel();
+    $_Login = new Login();
+
+    
+    $_loginCredentials->cleanSeccionVariables();
+
     $_loginCredentials->setPassword($_POST['password']);
     $_loginCredentials->setId($_POST['id']);
 
@@ -17,12 +31,10 @@ if (isset($_POST['login'])) {
     
     if ($userWithPerissions) {
         $_loginCredentials->saveSeccionVariables();
-        $_loginCredentials->goToContactForm();
+        $_Login->goToContactForm();
     } else {
         echo '<script language="javascript">alert("El número de identificación o contraseña es incorrecto!");</script>';
     }
 
     unset($_POST['login']);
 }
-
-?>
